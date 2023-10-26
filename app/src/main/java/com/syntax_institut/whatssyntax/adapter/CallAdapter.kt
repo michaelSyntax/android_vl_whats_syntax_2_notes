@@ -24,6 +24,7 @@ class CallAdapter(
         return CallViewHolder(binding)
     }
 
+
     override fun getItemCount(): Int {
         return dataset.size
     }
