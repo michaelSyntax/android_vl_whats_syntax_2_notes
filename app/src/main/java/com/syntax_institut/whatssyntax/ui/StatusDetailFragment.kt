@@ -32,5 +32,6 @@ class StatusDetailFragment: Fragment() {
         binding.cvStatusDetail.setOnClickListener {
             findNavController().navigate(R.id.statusFragment)
         }
+
     }
 }

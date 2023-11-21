@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.syntax_institut.whatssyntax.R
 import com.syntax_institut.whatssyntax.data.model.Call
+import com.syntax_institut.whatssyntax.data.remote.BASE_URL
 import com.syntax_institut.whatssyntax.databinding.ItemCallBinding
 
 
@@ -34,7 +36,7 @@ class CallAdapter(
 
         holder.binding.tvCallName.text = item.contact.name
         holder.binding.tvCallTime.text = item.time
-        holder.binding.tvCallContactImage.setImageResource(item.contact.image)
+        holder.binding.tvCallContactImage.load(BASE_URL + item.contact.image)
 
         if (item.accepted) {
             holder.binding.ivCallStatus.setImageResource(R.drawable.icon_call_accepted)

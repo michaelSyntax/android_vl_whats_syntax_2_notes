@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.syntax_institut.whatssyntax.data.model.Contact
+import com.syntax_institut.whatssyntax.data.remote.BASE_URL
 import com.syntax_institut.whatssyntax.databinding.ItemContactBinding
 import com.syntax_institut.whatssyntax.ui.StatusFragmentDirections
 
@@ -29,7 +31,7 @@ class ContactAdapter(
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val item = dataset[position]
 
-        holder.binding.ivContactImage.setImageResource(item.image)
+        holder.binding.ivContactImage.load(BASE_URL + item.image)
         holder.binding.tvContactName.text = item.name
 
         if (item.status == null) {

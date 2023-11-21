@@ -10,8 +10,13 @@ import com.syntax_institut.whatssyntax.databinding.ItemChatInBinding
 import com.syntax_institut.whatssyntax.databinding.ItemChatOutBinding
 
 class ChatDetailAdapter(
-    private val dataset: List<Message>
+    private val dataset: MutableList<Message>
 ): RecyclerView.Adapter<ViewHolder>() {
+
+    fun sendNewMessage(message: Message) {
+        dataset.add(message)
+        notifyItemInserted(dataset.size-1)
+    }
 
     private val outType = 1
     private val inType = 2
