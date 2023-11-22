@@ -7,7 +7,6 @@ import com.syntax_institut.whatssyntax.data.model.Chat
 import com.syntax_institut.whatssyntax.data.model.Contact
 import com.syntax_institut.whatssyntax.data.model.Message
 import com.syntax_institut.whatssyntax.data.model.Profile
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
@@ -30,7 +29,7 @@ private val retrofit = Retrofit.Builder()
 interface WhatsSyntaxApiService {
 
     @GET("/group/{number}/chats")
-    suspend fun getChats(@Path("number") number: Int, @Query("key") key: String): List<Chat>?
+    suspend fun getChats(@Path("number") number: Int, @Query("key") key: String): List<Chat>
 
     @GET("/group/{number}/chat/{chatId}")
     suspend fun getMessagesByChatId(@Path("number") number : Int, @Path("chatId") chatId: Int, @Query("key") key: String): List<Message>
