@@ -1,20 +1,26 @@
 package com.syntax_institut.whatssyntax.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.syntax_institut.whatssyntax.data.local.WhatsSyntaxDatabase
 import com.syntax_institut.whatssyntax.data.model.Call
 import com.syntax_institut.whatssyntax.data.model.Chat
 import com.syntax_institut.whatssyntax.data.model.Contact
 import com.syntax_institut.whatssyntax.data.model.Message
+import com.syntax_institut.whatssyntax.data.model.Note
 import com.syntax_institut.whatssyntax.data.model.Profile
 import com.syntax_institut.whatssyntax.data.remote.WhatsSyntaxApi
 import com.syntax_institut.whatssyntax.data.remote.WhatsSyntaxApiService
 import kotlinx.coroutines.delay
 
-class Repository(private val api: WhatsSyntaxApi) {
+class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDatabase) {
 
-    private val number = 2
+    private val number = 1
     private val key = "test"
+    private val tag = "REPOSITORY"
+
+    val notes = db.dao.getNotes()
 
     private val _chats = MutableLiveData<List<Chat>>()
     val chats: LiveData<List<Chat>>
@@ -37,39 +43,73 @@ class Repository(private val api: WhatsSyntaxApi) {
         get() = _profile
 
     suspend fun getChats() {
-        val result = api.retrofitService.getChats(number, key)
-        if (result != null) {
+        try {
+            val result = api.retrofitService.getChats(number, key)
             _chats.postValue(result!!)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
         }
     }
 
     suspend fun getCalls() {
-        val result = api.retrofitService.getCalls(number, key)
-        _calls.postValue(result)
+        try {
+            val result = api.retrofitService.getCalls(number, key)
+            _calls.postValue(result)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
+        }
     }
 
     suspend fun getMessagesByChatId(chatId: Int) {
-        _messages.postValue(listOf())
-        val result = api.retrofitService.getMessagesByChatId(number, chatId, key)
-        _messages.postValue(result)
+        try {
+            _messages.postValue(listOf())
+            val result = api.retrofitService.getMessagesByChatId(number, chatId, key)
+            _messages.postValue(result)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
+        }
     }
 
     suspend fun sendNewMessage(chatId: Int, message: Message) {
-        api.retrofitService.sendNewMessage(number, chatId, message, key)
+        try {
+            api.retrofitService.sendNewMessage(number, chatId, message, key)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
+        }
     }
 
     suspend fun getContacts() {
-        val result = api.retrofitService.getContacts(number, key)
-        _contacts.postValue(result)
+        try {
+            val result = api.retrofitService.getContacts(number, key)
+            _contacts.postValue(result)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
+        }
     }
 
     suspend fun getProfile() {
-        val result = api.retrofitService.getProfile(number, key)
-        _profile.postValue(result)
+        try {
+            val result = api.retrofitService.getProfile(number, key)
+            _profile.postValue(result)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
+        }
     }
 
     suspend fun setProfile(profile: Profile) {
-        api.retrofitService.setProfile(number, profile, key)
+        try {
+            api.retrofitService.setProfile(number, profile, key)
+        } catch (e: Exception) {
+            Log.e(tag, e.message.toString())
+        }
+    }
+
+    suspend fun saveNote(note: Note) {
+        db.dao.insertNote(note)
+    }
+
+    suspend fun deleteNote(note: Note) {
+        db.dao.deleteNote(note)
     }
 
 }

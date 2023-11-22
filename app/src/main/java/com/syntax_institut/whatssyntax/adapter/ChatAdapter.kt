@@ -37,7 +37,7 @@ class ChatAdapter(
         holder.binding.tvChatLastMess.text = item.lastMessage.text
 
         holder.binding.cvChat.setOnClickListener {
-            viewModel.getMessages(item.id)
+            viewModel.getMessages(item)
             holder.itemView.findNavController().navigate(R.id.chatDetailFragment)
         }
     }

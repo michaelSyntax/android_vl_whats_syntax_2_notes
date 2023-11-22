@@ -25,4 +25,10 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/icon_settings"
         android:title="Settings" />
+    <item
+        android:id="@+id/notesFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/icon_notes"
+        android:title="Notes" />
 </menu>

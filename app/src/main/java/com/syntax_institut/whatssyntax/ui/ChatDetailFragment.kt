@@ -29,17 +29,17 @@ class ChatDetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var adapter = ChatDetailAdapter(mutableListOf())
+        var adapter = ChatDetailAdapter(mutableListOf(), viewModel)
 
         viewModel.messages.observe(viewLifecycleOwner) {
-            adapter = ChatDetailAdapter(it.toMutableList())
+            adapter = ChatDetailAdapter(it.toMutableList(), viewModel)
             binding.rvMessages.adapter = adapter
         }
 
         binding.btSend.setOnClickListener {
             val text = binding.tietMessage.text.toString()
             if (text != "") {
-                val message = Message(text, false)
+                val message = Message(text = text, incoming =  false)
                 viewModel.sendNewMessage(message)
                 adapter.sendNewMessage(message)
             }

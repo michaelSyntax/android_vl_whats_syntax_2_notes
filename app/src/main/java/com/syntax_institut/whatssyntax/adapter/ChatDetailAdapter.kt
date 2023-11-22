@@ -1,16 +1,17 @@
 package com.syntax_institut.whatssyntax.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.syntax_institut.whatssyntax.MainViewModel
 import com.syntax_institut.whatssyntax.data.model.Message
 import com.syntax_institut.whatssyntax.databinding.ItemChatInBinding
 import com.syntax_institut.whatssyntax.databinding.ItemChatOutBinding
 
 class ChatDetailAdapter(
-    private val dataset: MutableList<Message>
+    private val dataset: MutableList<Message>,
+    private val viewModel: MainViewModel
 ): RecyclerView.Adapter<ViewHolder>() {
 
     fun sendNewMessage(message: Message) {
@@ -53,8 +54,17 @@ class ChatDetailAdapter(
 
         if (holder is MessageInViewHolder) {
             holder.binding.tvMessageIn.text = item.text
+
+            holder.binding.cvChatIn.setOnClickListener {
+                   viewModel.saveNote(item)
+            }
+
         } else if (holder is MessageOutViewHolder) {
             holder.binding.tvMessageOut.text = item.text
+
+            holder.binding.cvChatOut.setOnClickListener {
+                viewModel.saveNote(item)
+            }
         }
     }
 
