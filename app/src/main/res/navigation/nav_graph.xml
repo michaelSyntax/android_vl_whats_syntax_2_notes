@@ -19,11 +19,7 @@
     <fragment
         android:id="@+id/statusFragment"
         android:name="com.syntax_institut.whatssyntax.ui.StatusFragment"
-        android:label="StatusFragment" >
-        <action
-            android:id="@+id/action_statusFragment_to_statusDetailFragment"
-            app:destination="@id/statusDetailFragment" />
-    </fragment>
+        android:label="StatusFragment" />
     <fragment
         android:id="@+id/chatDetailFragment"
         android:name="com.syntax_institut.whatssyntax.ui.ChatDetailFragment"
@@ -31,11 +27,7 @@
     <fragment
         android:id="@+id/statusDetailFragment"
         android:name="com.syntax_institut.whatssyntax.ui.StatusDetailFragment"
-        android:label="StatusDetailFragment" >
-        <argument
-            android:name="status"
-            app:argType="string" />
-    </fragment>
+        android:label="StatusDetailFragment" />
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.syntax_institut.whatssyntax.ui.NotesFragment"

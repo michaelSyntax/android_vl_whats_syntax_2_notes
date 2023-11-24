@@ -2,14 +2,16 @@ package com.syntax_institut.whatssyntax
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.syntax_institut.whatssyntax.data.Repository
-import com.syntax_institut.whatssyntax.data.local.WhatsSyntaxDatabase
 import com.syntax_institut.whatssyntax.data.local.getDatabase
 import com.syntax_institut.whatssyntax.data.model.Chat
 import com.syntax_institut.whatssyntax.data.model.Message
 import com.syntax_institut.whatssyntax.data.model.Note
 import com.syntax_institut.whatssyntax.data.model.Profile
+import com.syntax_institut.whatssyntax.data.model.Status
 import com.syntax_institut.whatssyntax.data.remote.WhatsSyntaxApi
 import kotlinx.coroutines.launch
 
@@ -26,10 +28,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val profile = repository.profile
     val notes = repository.notes
 
+    private var _currentStatus = MutableLiveData<Status>()
+    val currentStatus: LiveData<Status>
+        get() = _currentStatus
+
     fun getChats() {
         viewModelScope.launch {
             repository.getChats()
-
         }
     }
 
@@ -37,21 +42,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         this.currentChat = chat
         viewModelScope.launch {
             repository.getMessagesByChatId(currentChat.id)
-
         }
     }
 
     fun sendNewMessage(message: Message) {
         viewModelScope.launch {
             repository.sendNewMessage(currentChat.id, message)
-
         }
     }
 
     fun getContacts() {
         viewModelScope.launch {
             repository.getContacts()
-
         }
     }
 
@@ -59,14 +61,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.getCalls()
         }
-
     }
 
     fun getProfile() {
         viewModelScope.launch {
             repository.getProfile()
         }
-
     }
 
     fun setProfile(profile: Profile) {
@@ -88,5 +88,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun setStatus(status: Status) {
+        _currentStatus.value = status
+    }
 
 }

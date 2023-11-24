@@ -30,7 +30,7 @@ class StatusFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-            binding.rvContacts.adapter = ContactAdapter(contacts.sortedBy { it.status == null })
+            binding.rvContacts.adapter = ContactAdapter(contacts.sortedBy { it.status == null }, viewModel)
         }
 
     }
