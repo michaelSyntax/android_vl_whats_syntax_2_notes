@@ -17,7 +17,7 @@ import kotlinx.coroutines.delay
 class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDatabase) {
 
     private val number = 1
-    private val key = "test"
+    private val key = "test2"
     private val tag = "REPOSITORY"
 
     val notes = db.dao.getNotes()

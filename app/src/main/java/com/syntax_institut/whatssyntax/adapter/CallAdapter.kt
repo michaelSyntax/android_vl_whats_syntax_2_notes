@@ -36,7 +36,9 @@ class CallAdapter(
 
         holder.binding.tvCallName.text = item.contact.name
         holder.binding.tvCallTime.text = item.time
-        holder.binding.tvCallContactImage.load(BASE_URL + item.contact.image)
+        holder.binding.tvCallContactImage.load(BASE_URL + item.contact.image) {
+
+        }
 
         if (item.accepted) {
             holder.binding.ivCallStatus.setImageResource(R.drawable.icon_call_accepted)
