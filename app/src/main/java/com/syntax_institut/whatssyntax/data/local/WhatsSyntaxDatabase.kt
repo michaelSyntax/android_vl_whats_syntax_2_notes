@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.syntax_institut.whatssyntax.data.model.Message
 import com.syntax_institut.whatssyntax.data.model.Note
-
 
 @Database(entities = [Note::class], version = 1)
 abstract class WhatsSyntaxDatabase : RoomDatabase() {
