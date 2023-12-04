@@ -3,6 +3,7 @@ package com.syntax_institut.whatssyntax.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.syntax_institut.whatssyntax.BuildConfig
 import com.syntax_institut.whatssyntax.data.local.WhatsSyntaxDatabase
 import com.syntax_institut.whatssyntax.data.model.Call
 import com.syntax_institut.whatssyntax.data.model.Chat
@@ -17,7 +18,9 @@ import kotlinx.coroutines.delay
 class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDatabase) {
 
     private val number = 1
-    private val key = "test2"
+
+    // Erwartet im File "local.properties" einen Eintrag: apiKey="meinApiKey"
+    private val key = BuildConfig.apiKey
     private val tag = "REPOSITORY"
 
     val notes = db.dao.getNotes()
@@ -45,7 +48,7 @@ class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDat
     suspend fun getChats() {
         try {
             val result = api.retrofitService.getChats(number, key)
-            _chats.postValue(result!!)
+            _chats.postValue(result)
         } catch (e: Exception) {
             Log.e(tag, e.message.toString())
         }

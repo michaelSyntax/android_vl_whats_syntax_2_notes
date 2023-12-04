@@ -1,9 +1,14 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
 }
+
+// Key wird aus local properties file herausgeholt
+val apiKey : String = gradleLocalProperties(rootDir).getProperty("apiKey")
 
 android {
     namespace = "com.syntax_institut.whatssyntax"
@@ -21,11 +26,17 @@ android {
 
     buildTypes {
         release {
+            // BuildConfigField wird dem Release BuildType hinzugefügt
+            buildConfigField("String", "apiKey", apiKey)
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            // BuildConfigField wird dem Debug BuildType hinzugefügt
+            buildConfigField("String", "apiKey", apiKey)
         }
     }
     compileOptions {
@@ -37,6 +48,10 @@ android {
     }
 
     buildFeatures {
+        // BuildConfig enablen
+        // Wichtig: Änderung wird nicht immer sofort erkannt, Gradle syncen und App einmal neustarten
+        // Key wird in diesem Projekt im Repository wieder aus der BuildConfig geholt
+        buildConfig = true
         viewBinding = true
     }
 }
@@ -45,6 +60,7 @@ dependencies {
 
     val retrofitVersion = "2.9.0"
     val roomVersion = "2.6.0"
+
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
