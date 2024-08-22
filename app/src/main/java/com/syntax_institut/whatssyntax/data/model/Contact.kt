@@ -1,8 +1,7 @@
 package com.syntax_institut.whatssyntax.data.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.syntax_institut.whatssyntax.data.remote.BASE_URL
 
 @Entity
 data class Contact(
@@ -11,4 +10,8 @@ data class Contact(
     val number: String,
     val image: String,
     val status: Status?
-)
+) {
+    fun getImageURL(): String {
+        return BASE_URL + image
+    }
+}

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.syntax_institut.whatssyntax.MainActivity
 import com.syntax_institut.whatssyntax.MainViewModel
 import com.syntax_institut.whatssyntax.adapter.ContactAdapter
 import com.syntax_institut.whatssyntax.databinding.FragmentStatusBinding
@@ -34,5 +33,4 @@ class StatusFragment: Fragment() {
         }
 
     }
-
 }

@@ -32,7 +32,7 @@ class ContactAdapter(
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val item = dataset[position]
 
-        holder.binding.ivContactImage.load(BASE_URL + item.image)
+        holder.binding.ivContactImage.load(item.getImageURL())
         holder.binding.tvContactName.text = item.name
 
         if (item.status == null) {
