@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.syntax_institut.whatssyntax.MainViewModel
 import com.syntax_institut.whatssyntax.data.model.Message
+import com.syntax_institut.whatssyntax.data.model.Note
 import com.syntax_institut.whatssyntax.databinding.ItemChatInBinding
 import com.syntax_institut.whatssyntax.databinding.ItemChatOutBinding
 
@@ -50,15 +51,19 @@ class ChatDetailAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataset[position]
+        val message = dataset[position]
 
         if (holder is MessageInViewHolder) {
-            holder.binding.tvMessageIn.text = item.text
-
+            holder.binding.tvMessageIn.text = message.text
+            holder.binding.cvChatIn.setOnClickListener {
+                viewModel.saveMessage(message.text)
+            }
 
         } else if (holder is MessageOutViewHolder) {
-            holder.binding.tvMessageOut.text = item.text
-
+            holder.binding.tvMessageOut.text = message.text
+            holder.binding.cvChatOut.setOnClickListener {
+                viewModel.saveMessage(message.text)
+            }
         }
     }
 

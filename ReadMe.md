@@ -125,3 +125,21 @@ Ist die Anfrage fehlerhaft, wird die Nachricht nicht erstellt.
 POST
 /group/{number}/chats/{chat-id}/new-message
 ```
+
+```
+Notes
+
+```
+
+1. Notes als Liste im Tab Notes anzeigen. - DONE
+   2. NotesAdapter erstellen, der Liste von Notes anzeigen soll. - DONE
+   3. Notesadapter aus NotesFragment starten. - DONE
+4. Notes Modell erstellen als Entity - DONE
+5. Datenbank als Singelton erstellen - DONE
+5. DatenBankDAO erstellen um folgende Funktionen bereitzustellen: - DONE
+   6. Einzelne Note speichern - DONE
+   7. Einzelne Note löschen - DONE
+   8. Liste Notes aus DatenBank lesen -DONE
+9. Verbindung zum Repository herstellen
+10. Verbindung zum ViewModel herstellen
+

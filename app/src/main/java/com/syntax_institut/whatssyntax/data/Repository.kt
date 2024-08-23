@@ -4,20 +4,24 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.syntax_institut.whatssyntax.BuildConfig
+import com.syntax_institut.whatssyntax.data.local.WhatsSyntaxDatabase
 import com.syntax_institut.whatssyntax.data.model.Call
 import com.syntax_institut.whatssyntax.data.model.Chat
 import com.syntax_institut.whatssyntax.data.model.Contact
 import com.syntax_institut.whatssyntax.data.model.Message
+import com.syntax_institut.whatssyntax.data.model.Note
 import com.syntax_institut.whatssyntax.data.model.Profile
 import com.syntax_institut.whatssyntax.data.remote.WhatsSyntaxApi
 
-class Repository(private val api: WhatsSyntaxApi) {
+class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDatabase) {
 
     private val number = 1
 
     // Erwartet im File "local.properties" einen Eintrag: apiKey="meinApiKey"
     private val key = BuildConfig.apiKey
     private val tag = "REPOSITORY"
+
+    val notes = db.dao.getNotes()
 
     private val _chats = MutableLiveData<List<Chat>>()
     val chats: LiveData<List<Chat>>
@@ -99,5 +103,17 @@ class Repository(private val api: WhatsSyntaxApi) {
         } catch (e: Exception) {
             Log.e(tag, e.message.toString())
         }
+    }
+
+    suspend fun insertNote(note: Note) {
+        db.dao.insertNote(note)
+    }
+
+    suspend fun deleteNote(note: Note) {
+        db.dao.delete(note)
+    }
+
+    suspend fun deleteNoteById(id: Long) {
+        db.dao.deleteNoteById(id)
     }
 }
