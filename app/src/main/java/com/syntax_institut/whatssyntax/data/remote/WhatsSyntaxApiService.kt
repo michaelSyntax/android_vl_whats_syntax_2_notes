@@ -58,7 +58,7 @@ interface WhatsSyntaxApiService {
     suspend fun setProfile(@Path("number") number: Int, @Body profile: Profile, @Query("key") key: String)
 
     @POST("/group/{number}/chats/{chatId}/new-message")
-    suspend fun sendNewMessage(@Path("number") number: Int, @Path("chatId") chatId: Int, @Body message: Message, @Query("key") key: String)
+    suspend fun sendNewMessage(@Path("number") number: Int, @Query("key") key: String, @Path("chatId") chatId: Int, @Body message: Message)
 
 }
 

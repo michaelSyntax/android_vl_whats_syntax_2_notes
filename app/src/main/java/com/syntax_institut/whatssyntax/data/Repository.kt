@@ -4,26 +4,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.syntax_institut.whatssyntax.BuildConfig
-import com.syntax_institut.whatssyntax.data.local.WhatsSyntaxDatabase
 import com.syntax_institut.whatssyntax.data.model.Call
 import com.syntax_institut.whatssyntax.data.model.Chat
 import com.syntax_institut.whatssyntax.data.model.Contact
 import com.syntax_institut.whatssyntax.data.model.Message
-import com.syntax_institut.whatssyntax.data.model.Note
 import com.syntax_institut.whatssyntax.data.model.Profile
 import com.syntax_institut.whatssyntax.data.remote.WhatsSyntaxApi
-import com.syntax_institut.whatssyntax.data.remote.WhatsSyntaxApiService
-import kotlinx.coroutines.delay
 
-class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDatabase) {
+class Repository(private val api: WhatsSyntaxApi) {
 
     private val number = 1
 
     // Erwartet im File "local.properties" einen Eintrag: apiKey="meinApiKey"
     private val key = BuildConfig.apiKey
     private val tag = "REPOSITORY"
-
-    val notes = db.dao.getNotes()
 
     private val _chats = MutableLiveData<List<Chat>>()
     val chats: LiveData<List<Chat>>
@@ -75,7 +69,7 @@ class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDat
 
     suspend fun sendNewMessage(chatId: Int, message: Message) {
         try {
-            api.retrofitService.sendNewMessage(number, chatId, message, key)
+            api.retrofitService.sendNewMessage(number, key, chatId, message)
         } catch (e: Exception) {
             Log.e(tag, e.message.toString())
         }
@@ -106,13 +100,4 @@ class Repository(private val api: WhatsSyntaxApi, private val db: WhatsSyntaxDat
             Log.e(tag, e.message.toString())
         }
     }
-
-    suspend fun saveNote(note: Note) {
-        db.dao.insertNote(note)
-    }
-
-    suspend fun deleteNote(note: Note) {
-        db.dao.deleteNote(note)
-    }
-
 }

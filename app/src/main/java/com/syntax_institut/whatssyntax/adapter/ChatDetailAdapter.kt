@@ -55,16 +55,10 @@ class ChatDetailAdapter(
         if (holder is MessageInViewHolder) {
             holder.binding.tvMessageIn.text = item.text
 
-            holder.binding.cvChatIn.setOnClickListener {
-                   viewModel.saveNote(item)
-            }
 
         } else if (holder is MessageOutViewHolder) {
             holder.binding.tvMessageOut.text = item.text
 
-            holder.binding.cvChatOut.setOnClickListener {
-                viewModel.saveNote(item)
-            }
         }
     }
 
